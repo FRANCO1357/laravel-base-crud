@@ -31,7 +31,7 @@
             <label for="">Tipo di fumetto</label>
             <input type="text" id="type" placeholder="Tipo di fumetto" name="type">
         </div>  
-        <a href="{{route('comics.index')}}">Torna alla lista dei fumetti</a>
+        <a href="{{route('home')}}">Torna alla home</a>
         <button type="reset">Cancella</button>
         <button type="submit">Crea</button>
     </form>
