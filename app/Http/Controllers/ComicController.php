@@ -108,6 +108,6 @@ class ComicController extends Controller
         // alternativa
         // Team::destroy($id);
 
-        return redirect()->route('comics.index');
+        return redirect()->route('comics.index')->with('deleted', "$comic->title eliminato");
     }
 }

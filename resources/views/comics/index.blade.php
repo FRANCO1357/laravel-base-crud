@@ -1,6 +1,11 @@
 @extends('layouts.main')
 
 @section('main-content')
+
+@if (session('deleted'))
+    <p>{{session('deleted')}}</p>
+@endif
+
     @foreach ($comics as $comic)
         <ul>
             <li><a href="{{route('comics.show', $comic->id)}}">{{$comic->title}}</a> <a href="{{route('comics.edit', $comic->id)}}">Modifica fumetto</a> <form action="{{route('comics.destroy', $comic->id)}}" method="POST">
