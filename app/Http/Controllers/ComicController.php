@@ -43,14 +43,16 @@ class ComicController extends Controller
             'title' => ['required', 'string', 'unique:comics'],
             'description' => ['required', 'string', 'unique:comics'],
             'thumb' => ['required', 'string'],
-            'price' => ['required', 'numeric'],
+            'price' => ['required', 'numeric', 'min:0', 'max:1000'],
             'series' => ['required', 'string'],
             'sale_date' => ['required', 'string'],
             'type' => ['required', 'string'],
         ],
         [
-            'title.unique' => 'Non puoi inserire un titolo già esistente',
-            'title.required' => 'Il titolo è obbligatorio'
+            'title.unique' => "Il fumetto $request->title esiste già",
+            'title.required' => 'Il titolo è obbligatorio',
+            'price.min' => 'Il prezzo minimo è 0', 
+            'price.max' => 'Il prezzo massimo è 1000', 
         ]);
 
         // metodo lungo
