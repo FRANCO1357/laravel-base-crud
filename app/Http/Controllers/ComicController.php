@@ -6,6 +6,8 @@ use App\Models\Comic;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Validation\Rule;
+
 class ComicController extends Controller
 {
     /**
@@ -99,6 +101,23 @@ class ComicController extends Controller
     public function update(Request $request, Comic $comic)
     {
         $data = $request->all();
+
+        $request->validate([
+            'title' => ['required', 'string', Rule::unique('comics')->ignore($comic->id)],
+            'description' => ['required', 'string', Rule::unique('comics')->ignore($comic->id)],
+            'thumb' => ['required', 'string'],
+            'price' => ['required', 'numeric', 'min:0', 'max:1000'],
+            'series' => ['required', 'string'],
+            'sale_date' => ['required', 'string'],
+            'type' => ['required', 'string'],
+        ],
+        [
+            'title.unique' => "Il fumetto $request->title esiste già",
+            'description.unique' => "Descrizione già esistente",
+            'title.required' => 'Il titolo è obbligatorio',
+            'price.min' => 'Il prezzo minimo è 0', 
+            'price.max' => 'Il prezzo massimo è 1000', 
+        ]);
 
         // metodo lungo
         $comic->fill($data);
