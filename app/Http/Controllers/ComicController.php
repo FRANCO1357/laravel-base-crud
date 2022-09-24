@@ -39,6 +39,20 @@ class ComicController extends Controller
     {
         $data = $request->all();
 
+        $request->validate([
+            'title' => ['required', 'string', 'unique:comics'],
+            'description' => ['required', 'string', 'unique:comics'],
+            'thumb' => ['required', 'string'],
+            'price' => ['required', 'numeric'],
+            'series' => ['required', 'string'],
+            'sale_date' => ['required', 'string'],
+            'type' => ['required', 'string'],
+        ],
+        [
+            'title.unique' => 'Non puoi inserire un titolo già esistente',
+            'title.required' => 'Il titolo è obbligatorio'
+        ]);
+
         // metodo lungo
         $comic = new Comic();
         $comic->fill($data);
@@ -82,7 +96,7 @@ class ComicController extends Controller
      */
     public function update(Request $request, Comic $comic)
     {
-        $data =  $request->all();
+        $data = $request->all();
 
         // metodo lungo
         $comic->fill($data);
